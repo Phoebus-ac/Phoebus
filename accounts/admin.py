@@ -39,6 +39,8 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ('user', 'email_verified', 'reputation_tier',
                    'academic_affiliation', 'academic_affiliation_verified',
                    'orcid_id', 'orcid_id_verified')
+    search_fields = ('user', )
+    ordering = ('user', )
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
