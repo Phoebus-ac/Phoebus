@@ -1,6 +1,7 @@
 import os
 import dotenv
 from pathlib import Path
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -98,3 +99,59 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = 'media/'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
+    'UPDATE_LAST_LOGIN': True,
+}
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    "SEND_ACTIVATION_EMAIL": True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    "ACTIVATION_URL": "#/activate/{uid}/{token}",
+    "PASSWORD_RESET_CONFIRM_URL": "#/password/reset/confirm/{uid}/{token}",
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format':
+            '[{asctime}] - {levelname} - {module}.{funcName} : {message}',
+            'log_colors': {
+                'DEBUG': 'bold_white',
+                'INFO': 'green',
+                'WARNING': 'yellow',
+                'ERROR': 'red',
+                'CRITICAL': 'bold_red',
+            },
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'backend': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
