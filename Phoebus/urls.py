@@ -11,7 +11,7 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls.jwt')),
 
     path('api/accounts/', include('accounts.urls')),
-    # path('api/manuscripts/', include('manuscripts.urls')),
+    path('api/manuscripts/', include('manuscripts.urls')),
 ]
 
 handler404 = views.error404
